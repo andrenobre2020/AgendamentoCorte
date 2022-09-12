@@ -1,8 +1,9 @@
 import React from "react";
 import { View ,Text,StyleSheet,Image,TextInput,TouchableOpacity,ImageBackground} from "react-native";
-
+import {useNavigation} from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 export default function MiddleLogar(){
+    const navigation = useNavigation()
     return(
         <View style={styles.container}>
         
@@ -11,14 +12,14 @@ export default function MiddleLogar(){
         
 
         <View style={{alignItems:'center',marginTop:12,}}>
-            <Image style={styles.Logo} source={require('../../../Imagem/Pole.png')}/> 
+            <Image style={styles.Logo} source={require('../../../Imagem/Barber_Shop.png')}/> 
         </View>
 
 
     <View style={{alignItems:'center'}}>
-        <TouchableOpacity style={{alignItems:'center',marginTop:20,flexDirection:'row' }}>
+        <TouchableOpacity onPress={() => {navigation.navigate("TelaLogin"), navigation.reset({index:0, routes:[{name: 'TelaLogin'}]})}} style={{alignItems:'center',marginTop:20,flexDirection:'row' }}>
             <Text style={{color:'#fff',fontSize:16,fontWeight:'bold',paddingEnd:10}}>LOGIN</Text>
-            <AntDesign name="arrowright" size={24} color="#fff" />
+            <AntDesign name="right" size={24} color="#fff" />
         </TouchableOpacity>
     </View>
         
@@ -30,12 +31,12 @@ export default function MiddleLogar(){
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'#026AB3'
+        backgroundColor:'#016AB4'
     },
 
     Logo:{
         width:300,
-        height:450,
+        height:550,
 
     },
 

@@ -14,7 +14,7 @@ export default function LoginHeader(){
 const styles = StyleSheet.create({
     container:{
         paddingTop: statusbarHeight,
-        backgroundColor: '#026AB3',
+        backgroundColor: '#016AB4',
         justifyContent:'center',
         alignItems:'center',
         paddingBottom:3,
