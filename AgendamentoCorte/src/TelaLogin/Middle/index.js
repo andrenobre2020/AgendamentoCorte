@@ -1,9 +1,43 @@
-import React from "react";
+import React,{useState} from "react";
 import { View,Text,StyleSheet,Image ,TextInput,TouchableOpacity} from "react-native";
+import {useNavigation} from '@react-navigation/native';
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword} from "firebase/auth";
+import * as Animatables from "react-native-animatable";
+import firebase from 'firebase/compat';
+import Firebase from  '../../db';
 
 export default function TelaMiddle(){
+    const navigation = useNavigation();
+    const[Email,setEmail] = useState('')
+    const[Senha,setSenha] = useState('')
+
+
+
+ const Logar = () =>{
+    const auth = getAuth();
+signInWithEmailAndPassword(auth, Email, Senha)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    navigation.navigate('Home')
+             
+    navigation.reset({
+      index:0,
+      routes:[{name: 'Home'}]
+    })
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert('Usuario e Senha incorreto !')
+    // ..
+  });
+};
+
+
+
     return(
-        <View style={styles.container}>
+        <Animatables.View animation='fadeInUp' delay={700} style={styles.container}>
             <Image style={styles.Fotos} source={require('../../../Imagem/Logo.jpeg')}/>
 
           
@@ -16,16 +50,17 @@ export default function TelaMiddle(){
              BARBER SHOP LOGIN
             </Text>
 
-            <TextInput autoComplete="email" style={styles.Entrada} placeholderTextColor='#fff' placeholder="Usuario"/>
-            <TextInput autoComplete="password" secureTextEntry={true} style={styles.Entrada} placeholderTextColor='#fff' placeholder="Senha"/>
+            <TextInput onChangeText={Email => setEmail(Email)}  style={styles.Entrada} placeholderTextColor='#fff' placeholder="Email"/>
+            <TextInput onChangeText={Senha => setSenha(Senha)} autoComplete="password" secureTextEntry={true} style={styles.Entrada} placeholderTextColor='#fff' placeholder="Senha"/>
             
-            <TouchableOpacity style={{marginTop:10}}>
+            <TouchableOpacity onPress={() => {navigation.navigate('Register')}} style={{marginTop:10}}>
                 <Text style={{fontWeight:'bold',fontSize:16}}>
                     Registra-se
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.Botao}>
+
+            <TouchableOpacity onPress={Logar} style={styles.Botao}>
                 <Text style={{color:'#fff',fontWeight:'bold',textAlign:'center'}}>Logar</Text>
             </TouchableOpacity>
         </View>            
@@ -34,7 +69,7 @@ export default function TelaMiddle(){
             
 
         <Image style={styles.Fotos} source={require('../../../Imagem/Logo.jpeg')}/>
-        </View>
+        </Animatables.View>
     )
 }
 
